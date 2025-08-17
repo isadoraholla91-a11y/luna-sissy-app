@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ab47bc">
+    <meta name="description" content="Luna: Din personlige sissy-veileder for transformasjon og vekst">
+    
+    <!-- Security: Content Security Policy -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'self';">
+    
+    <title>Luna: Din Sissy-Veileder</title>
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIkx1bmE6IERpbiBTaXNzeS1WZWlsZWRlciIsCiAgInNob3J0X25hbWUiOiAiTHVuYSIsCiAgImRlc2NyaXB0aW9uIjogIkRpbiBwZXJzb25saWdlIHNpc3N5LXZlaWxlZGVyIGZvciB0cmFuc2Zvcm1hc2pvbiBvZyB2ZWtzdCIsCiAgInN0YXJ0X3VybCI6ICIvIiwKICAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwKICAiYmFja2dyb3VuZF9jb2xvciI6ICIjZjhmN2ZhIiwKICAidGhlbWVfY29sb3IiOiAiI2FiNDdiYyIsCiAgImljb25zIjogWwogICAgewogICAgICAic3JjIjogImRhdGE6aW1hZ2Uvc3ZnK3htbDtiYXNlNjQsUEhOMlp5QjNhV1IwYUQwaU1qUXdJaUJvWldsbmFIUTlJakkwTUNJZ2RtbGxkMEp2ZUQwaU1DQXdJakkwTUNBeU5EQWlJR1pwYkd3OUltNXZibVVpSUhodGJHNXpQU0pvZEhSd09pOHZkM2QzTG5jekxtOXlaeTh5TURBd0wzTjJaeUkrUEhCaGRHZ2dabWxzYkQwaUl6RkdRamhEUkNJZ1pEMGlUVEV5TUNBME1ITXRORGd1TmlBeE1EQXVNALK2lKTUFSTjz5OQZNA7aRlKOGJBTG5EWCkgONNiTK10gYZNMHKRjZKGJ+Cid0yOlj1aFpNASU0+UEhPaGNZc2FYQnZOPEh2eERlRHhNZjQwN0dYV1BVTG5EI3WCi5VKiM5B5hKNNHKRjZKQj1QfHNCk5ObM0nYQz3OM0nOiSASOMSNOKKLQZ1aFpNASU0iLQNhNPFjC49Iig==", 
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    }
+  ]
+}">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="style.css" as="style">
+    <link rel="preload" href="app.js" as="script">
+    
+    <!-- Icons for PWA -->
+    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDE5MiAxOTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iOTYiIGN5PSI5NiIgcj0iOTYiIGZpbGw9IiNhYjQ3YmMiLz48dGV4dCB4PSI5NiIgeT0iMTEwIiBmb250LXNpemU9IjcyIiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkw8L3RleHQ+PC9zdmc+">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Skip Links for Accessibility -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 btn btn--primary">
+        Hopp til hovedinnhold
+    </a>
+    
+    <!-- PWA Install Banner -->
+    <div id="install-banner" class="hidden fixed top-0 left-0 right-0 bg-primary text-white p-4 z-50" role="banner">
+        <div class="container flex justify-between items-center">
+            <div>
+                <h3 class="font-semibold">Installer Luna-appen</h3>
+                <p class="text-sm opacity-90">Få tilgang til alle funksjoner offline</p>
+            </div>
+            <div class="flex gap-2">
+                <button id="install-button" class="btn btn--secondary btn--sm">Installer</button>
+                <button id="dismiss-install" class="btn btn--outline btn--sm">Avslå</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="fixed inset-0 bg-background flex items-center justify-center z-40">
+        <div class="text-center">
+            <div class="inline-block w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mb-4"></div>
+            <h2 class="text-xl font-semibold text-primary">Luna starter...</h2>
+        </div>
+    </div>
+    
+    <!-- Main App Container -->
+    <div id="app-container" class="app-container" role="main">
+        <!-- Header -->
+        <header class="app-header" role="banner">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h1 class="text-xl font-bold text-primary">Luna</h1>
+                    <p class="text-sm text-text-secondary">Din Sissy-Veileder</p>
+                </div>
+                <div class="text-right">
+                    <p class="font-semibold text-primary">
+                        Nivå <span id="level-display-header" aria-live="polite">1</span>
+                    </p>
+                    <p class="text-sm text-text-secondary">
+                        <span id="points-display-header" aria-live="polite">50</span> poeng
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Connection Status -->
+            <div id="connection-status" class="connection-status" role="status" aria-live="polite">
+                <span class="sr-only">Tilkoblingsstatus:</span>
+                <span id="connection-text">Tilkoblet</span>
+            </div>
+        </header>
+        
+        <!-- Main Content -->
+        <main id="main-content" class="main-content" tabindex="-1">
+            <!-- Home Page -->
+            <section id="page-hjem" class="page active" role="tabpanel" aria-labelledby="nav-hjem">
+                <div class="text-center mb-8">
+                    <div class="points-circle">
+                        <p class="text-text-secondary text-sm">Nåværende Poengsum</p>
+                        <p id="points-display-main" class="points-display" aria-live="polite">50</p>
+                    </div>
+                </div>
+                
+                <div class="card mb-6">
+                    <div class="card__body text-center">
+                        <h2 class="text-lg font-semibold text-text mb-2">Neste Oppgave:</h2>
+                        <p id="next-task-display" class="text-xl text-primary" aria-live="polite">Kjenn BHen</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card__body text-center">
+                        <p id="motivational-quote" class="text-text-secondary italic" role="img" aria-label="Motiverende sitat">
+                            "Hver minste bevegelse former din Isadora. Du er vakker i din dedikasjon."
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tasks Page -->
+            <section id="page-tasks" class="page" role="tabpanel" aria-labelledby="nav-tasks">
+                <h2 class="text-2xl font-bold mb-4 text-primary">Mine Daglige Oppgaver</h2>
+                <div id="task-list" class="space-y-4" role="list"></div>
+                
+                <!-- Task Completion Celebration -->
+                <div id="task-celebration" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-30" role="dialog" aria-labelledby="celebration-title">
+                    <div class="card max-w-sm mx-4">
+                        <div class="card__body text-center">
+                            <div class="text-6xl mb-4">🎉</div>
+                            <h3 id="celebration-title" class="text-xl font-bold text-primary mb-2">Flott jobbet!</h3>
+                            <p class="text-text-secondary mb-4">Du har fullført en oppgave og tjent poeng!</p>
+                            <button id="close-celebration" class="btn btn--primary">Fortsett</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Rewards Page -->
+            <section id="page-rewards" class="page" role="tabpanel" aria-labelledby="nav-rewards">
+                <h2 class="text-2xl font-bold mb-4 text-primary">Poeng & Belønninger</h2>
+                
+                <div class="card mb-6">
+                    <div class="card__body">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="font-bold text-lg">
+                                Totalt: <span id="rewards-points-total" class="text-primary" aria-live="polite">50</span> poeng
+                            </span>
+                            <span class="text-sm text-text-secondary">
+                                Neste Nivå: <span id="next-level-target" aria-live="polite">1000</span>p
+                            </span>
+                        </div>
+                        
+                        <div class="progress-container">
+                            <div id="level-progress-bar" class="progress-bar" style="width: 5%" role="progressbar" 
+                                 aria-valuenow="5" aria-valuemin="0" aria-valuemax="100" aria-label="Fremgang til neste nivå">
+                            </div>
+                        </div>
+                        
+                        <p class="text-center text-sm mt-2">
+                            Nivå <span id="rewards-level" aria-live="polite">1</span>: Nybegynner Sissy
+                        </p>
+                    </div>
+                </div>
+                
+                <h3 class="text-xl font-semibold mb-4">Belønningsbutikk</h3>
+                <div id="rewards-store" class="space-y-4" role="list"></div>
+            </section>
+
+            <!-- Inspiration Page -->
+            <section id="page-inspiration" class="page" role="tabpanel" aria-labelledby="nav-inspiration">
+                <h2 class="text-2xl font-bold mb-4 text-primary">Visuell Inspirasjon</h2>
+                
+                <div class="card mb-6">
+                    <div class="card__body">
+                        <p class="text-sm text-text-secondary mb-4">
+                            Last opp et inspirerende bilde, og Luna vil lage en personlig utfordring for deg.
+                        </p>
+                        
+                        <div class="upload-area" role="button" tabindex="0" aria-label="Klikk for å laste opp bilde">
+                            <img id="image-preview" class="hidden max-h-48 mx-auto rounded-lg mb-4" alt="Forhåndsvisning av opplastet bilde"/>
+                            
+                            <label for="image-upload" class="upload-label">
+                                <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                </svg>
+                                <span id="upload-label-text">Velg et bilde</span>
+                            </label>
+                            
+                            <input id="image-upload" type="file" class="sr-only" accept="image/*" aria-describedby="image-help">
+                            <p id="image-help" class="text-xs text-text-secondary mt-2">
+                                Støttede formater: JPG, PNG, WebP. Maks 5MB.
+                            </p>
+                        </div>
+                        
+                        <button id="generate-inspiration-button" class="btn btn--primary btn--full-width mt-4" disabled>
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3l14 9-14 9V3z"></path>
+                            </svg>
+                            Lag utfordring fra bilde
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="inspiration-challenge-container" class="hidden">
+                    <div class="card">
+                        <div class="card__header">
+                            <h3 class="font-semibold text-primary">Din Personlige Utfordring</h3>
+                        </div>
+                        <div class="card__body">
+                            <div id="inspiration-challenge-content"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Documentation Page -->
+            <section id="page-docs" class="page" role="tabpanel" aria-labelledby="nav-docs">
+                <h2 class="text-2xl font-bold mb-4 text-primary">Dokumentasjon</h2>
+                
+                <div class="card mb-6">
+                    <div class="card__header">
+                        <h3 class="font-semibold">Min Isadora-Dagbok</h3>
+                    </div>
+                    <div class="card__body">
+                        <label for="diary-entry" class="form-label">Skriv ned dine refleksjoner:</label>
+                        <textarea id="diary-entry" 
+                                  class="form-control mb-4" 
+                                  rows="6"
+                                  placeholder="Skriv ned dine refleksjoner, følelser og erfaringer..."
+                                  aria-describedby="diary-help">
+                        </textarea>
+                        <p id="diary-help" class="text-xs text-text-secondary mb-4">
+                            Dine notater lagres trygt på enheten din og deles ikke.
+                        </p>
+                        
+                        <div class="flex gap-2">
+                            <button id="save-diary-button" class="btn btn--primary flex-1">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                Lagre Notat
+                            </button>
+                            <button id="get-reflection-button" class="btn btn--secondary flex-1" disabled>
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                                </svg>
+                                Få Lunas Refleksjon
+                            </button>
+                        </div>
+                        
+                        <div id="reflection-container" class="hidden mt-4 card">
+                            <div class="card__body">
+                                <h4 class="font-semibold text-primary mb-2">Lunas Refleksjon:</h4>
+                                <div id="reflection-content"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card__header">
+                        <h3 class="font-semibold">Min Historikk</h3>
+                    </div>
+                    <div class="card__body">
+                        <div id="history-gallery" class="space-y-3">
+                            <p class="text-text-secondary">Dine lagrede notater vil vises her.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Chat Page -->
+            <section id="page-chat" class="page flex flex-col" role="tabpanel" aria-labelledby="nav-chat">
+                <h2 class="text-2xl font-bold mb-4 text-primary">Chat med Luna</h2>
+                
+                <div class="chat-container flex-grow" role="log" aria-live="polite" aria-label="Chat-meldinger">
+                    <div id="chat-messages" class="chat-messages"></div>
+                </div>
+                
+                <form id="chat-form" class="chat-input-form">
+                    <label for="chat-input" class="sr-only">Skriv din melding til Luna</label>
+                    <div class="flex gap-2">
+                        <input type="text" 
+                               id="chat-input" 
+                               class="form-control flex-grow"
+                               placeholder="Skriv din melding..."
+                               maxlength="500"
+                               aria-describedby="chat-help">
+                        <button type="submit" 
+                                id="chat-send" 
+                                class="btn btn--primary"
+                                aria-label="Send melding">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <p id="chat-help" class="text-xs text-text-secondary mt-1">
+                        <span id="chat-char-count">0</span>/500 tegn
+                    </p>
+                </form>
+            </section>
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav" role="tablist" aria-label="Hovednavigasjon">
+            <button data-page="hjem" class="nav-btn active" role="tab" aria-selected="true" aria-controls="page-hjem" id="nav-hjem">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                </svg>
+                <span class="nav-label">Hjem</span>
+            </button>
+            
+            <button data-page="tasks" class="nav-btn" role="tab" aria-selected="false" aria-controls="page-tasks" id="nav-tasks">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+                </svg>
+                <span class="nav-label">Oppgaver</span>
+            </button>
+            
+            <button data-page="inspiration" class="nav-btn" role="tab" aria-selected="false" aria-controls="page-inspiration" id="nav-inspiration">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                <span class="nav-label">Inspirasjon</span>
+            </button>
+            
+            <button data-page="rewards" class="nav-btn" role="tab" aria-selected="false" aria-controls="page-rewards" id="nav-rewards">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
+                </svg>
+                <span class="nav-label">Belønninger</span>
+            </button>
+            
+            <button data-page="docs" class="nav-btn" role="tab" aria-selected="false" aria-controls="page-docs" id="nav-docs">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+                <span class="nav-label">Dokumentasjon</span>
+            </button>
+            
+            <button data-page="chat" class="nav-btn" role="tab" aria-selected="false" aria-controls="page-chat" id="nav-chat">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                </svg>
+                <span class="nav-label">Chat</span>
+            </button>
+        </nav>
+    </div>
+    
+    <!-- Error Messages -->
+    <div id="error-toast" class="error-toast hidden" role="alert" aria-live="assertive">
+        <div class="flex items-center">
+            <svg class="w-5 h-5 mr-2 text-error" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+            </svg>
+            <span id="error-message">En feil oppstod</span>
+        </div>
+        <button id="close-error" class="ml-4 text-error hover:text-error-hover">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+            </svg>
+        </button>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
